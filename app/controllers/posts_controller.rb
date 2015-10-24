@@ -4,14 +4,21 @@ class PostsController < ApplicationController
   end
 
   def new
+    @post = Post.new
   end
 
   def create
+    # title = params[:post][:title]
+    #   body = params[:post][:body]
+    #   @post = [title, body]
     @post = Post.new(post_params)
-    @post.save
 
-    redirect_to @post
+    if @post.save
 
+      redirect_to @post    
+    else
+      render "new"
+    end
   end
 
   def show
@@ -21,7 +28,9 @@ class PostsController < ApplicationController
   private
     def post_params
       params.require(:post).permit(:title, :body)
+      # params[:post][:title]
+
     end
 
-  
+
 end
